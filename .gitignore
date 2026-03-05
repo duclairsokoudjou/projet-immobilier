@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+.env
+data/raw/
+data/processed/
+projet_immobilier_dbt/target/
+projet_immobilier_dbt/dbt_packages/
+projet_immobilier_dbt/logs/
+.ipynb_checkpoints/
+.vscode/
+Thumbs.db
+.DS_Store
