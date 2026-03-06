@@ -106,7 +106,7 @@ python scripts/02_load_to_postgres.py
 
 # 5. Lancer dbt 
 cd immobilier_dbt 
-/n dbt run && dbt test 
+dbt run && dbt test 
 
 
 
