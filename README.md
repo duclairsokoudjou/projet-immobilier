@@ -106,3 +106,22 @@ python scripts/02_load_to_postgres.py
 
 # 5. Lancer dbt 
 cd immobilier_dbt 
+dbt run && dbt test 
+
+
+
+
+## Données 
+
+ 
+
+- Source : [DVF — data.gouv.fr](https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres/) 
+- Données officielles du gouvernement français 
+
+ 
+
+## Auteur 
+
+ 
+
+[DUCLAIR SOKOUDJOU] — [https://www.linkedin.com/feed/] — [duclairsokoudjou@gmail.com] 
