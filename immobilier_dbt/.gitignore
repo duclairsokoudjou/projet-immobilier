@@ -2,3 +2,4 @@
 target/
 dbt_packages/
 logs/
+immobilier_dbt/logs/
