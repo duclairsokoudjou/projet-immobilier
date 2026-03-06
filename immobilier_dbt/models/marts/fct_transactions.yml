@@ -1,0 +1,144 @@
+version: 2
+
+models:
+  - name: fct_transactions
+    description: >
+      Table de faits centrale — toutes les transactions immobilières enrichies.
+      Matérialisée en TABLE pour performance Power BI.
+      Source : int_transactions.
+
+    columns:
+      # ── Identifiants
+      - name: id_document
+        description: "Identifiant unique de la transaction"
+        tests:
+          - not_null
+
+      - name: code_commune
+        description: "Code INSEE de la commune"
+        tests:
+          - not_null
+
+      - name: nom_commune
+        description: "Nom de la commune"
+        tests:
+          - not_null
+
+      - name: code_departement
+        description: "Code du département"
+        tests:
+          - not_null
+
+      - name: code_postal
+        description: "Code postal"
+
+      # ── Temps
+      - name: date_mutation
+        description: "Date de la transaction"
+        tests:
+          - not_null
+
+      - name: annee_mutation
+        description: "Année de la transaction"
+        tests:
+          - not_null
+
+      - name: mois_mutation
+        description: "Mois de la transaction (1 à 12)"
+        tests:
+          - not_null
+
+      - name: trimestre_mutation
+        description: "Trimestre de la transaction (1 à 4)"
+        tests:
+          - not_null
+
+      - name: saison_vente
+        description: "Saison de la vente"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Hiver", "Printemps", "Été", "Automne"]
+
+      # ── Bien
+      - name: type_bien
+        description: "Appartement ou Maison"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Appartement", "Maison"]
+
+      - name: nb_pieces
+        description: "Nombre de pièces principales"
+
+      - name: surface_m2
+        description: "Surface habitable en m²"
+        tests:
+          - not_null
+
+      - name: surface_terrain_m2
+        description: "Surface du terrain en m²"
+
+      - name: surface_carrez_m2
+        description: "Surface loi Carrez en m²"
+
+      - name: nombre_lots
+        description: "Nombre de lots dans la transaction"
+
+      - name: categorie_bien
+        description: "Studio/T1, T2, T3, T4, T5 et plus"
+        tests:
+          - not_null
+
+      - name: has_terrain
+        description: "TRUE si maison avec terrain"
+        tests:
+          - not_null
+
+      - name: is_vente_en_bloc
+        description: "TRUE si transaction avec plusieurs lots"
+        tests:
+          - not_null
+
+      # ── Prix
+      - name: prix_vente
+        description: "Prix de vente en euros"
+        tests:
+          - not_null
+
+      - name: prix_m2
+        description: "Prix au m²"
+        tests:
+          - not_null
+
+      - name: tranche_prix
+        description: "Tranche de prix total"
+        tests:
+          - not_null
+
+      - name: categorie_prix_m2
+        description: "Catégorie prix au m² : Très abordable → Premium"
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                ["Très abordable", "Abordable", "Moyen", "Élevé", "Premium"]
+
+      - name: ratio_carrez_pct
+        description: "Ratio surface Carrez / surface réelle en %"
+
+      - name: rendement_locatif_estime_pct
+        description: "Rendement locatif théorique estimé en %"
+
+      # ── Localisation
+      - name: numero_voie
+        description: "Numéro dans la rue"
+
+      - name: type_voie
+        description: "Rue, Avenue, Boulevard..."
+
+      - name: nom_voie
+        description: "Nom de la rue"
+
+      - name: section_cadastrale
+        description: "Section cadastrale du bien"

@@ -1,0 +1,87 @@
+version: 2
+
+models:
+  - name: mart_prix_villes
+    description: >
+      KPI prix par ville, type de bien et année.
+      Agrégation des transactions — minimum 5 transactions par groupe.
+      KPI principal pour le dashboard Power BI.
+
+    columns:
+      - name: nom_commune
+        description: "Nom de la commune"
+        tests:
+          - not_null
+
+      - name: code_departement
+        description: "Code du département"
+        tests:
+          - not_null
+
+      - name: code_postal
+        description: "Code postal"
+
+      - name: type_bien
+        description: "Appartement ou Maison"
+        tests:
+          - not_null
+
+      - name: annee_mutation
+        description: "Année"
+        tests:
+          - not_null
+
+      - name: nb_transactions
+        description: "Nombre de transactions"
+        tests:
+          - not_null
+
+      - name: prix_m2_median
+        description: "Prix médian au m²"
+        tests:
+          - not_null
+
+      - name: prix_m2_moyen
+        description: "Prix moyen au m²"
+
+      - name: prix_m2_min
+        description: "Prix minimum au m²"
+
+      - name: prix_m2_max
+        description: "Prix maximum au m²"
+
+      - name: prix_vente_median
+        description: "Prix de vente médian en euros"
+
+      - name: prix_vente_moyen
+        description: "Prix de vente moyen en euros"
+
+      - name: surface_m2_mediane
+        description: "Surface médiane en m²"
+
+      - name: surface_m2_moyenne
+        description: "Surface moyenne en m²"
+
+      - name: nb_premium
+        description: "Nombre de biens Premium (>12k€/m²)"
+
+      - name: nb_eleve
+        description: "Nombre de biens Élevé (7k-12k€/m²)"
+
+      - name: nb_moyen
+        description: "Nombre de biens Moyen (4k-7k€/m²)"
+
+      - name: nb_abordable
+        description: "Nombre de biens Abordable (2k-4k€/m²)"
+
+      - name: nb_tres_abordable
+        description: "Nombre de biens Très abordable (<2k€/m²)"
+
+      - name: rendement_moyen_pct
+        description: "Rendement locatif estimé moyen en %"
+
+      - name: nb_avec_terrain
+        description: "Nombre de maisons avec terrain"
+
+      - name: surface_terrain_moyenne
+        description: "Surface terrain moyenne en m²"

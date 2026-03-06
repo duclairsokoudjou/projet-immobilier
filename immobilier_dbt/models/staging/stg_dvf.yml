@@ -1,0 +1,133 @@
+version: 2
+
+models:
+  - name: stg_dvf
+    description: >
+      Données DVF standardisées et nettoyées.
+      Source : raw.raw_dvf — Transactions immobilières officielles France.
+      Filtrées sur Appartements et Maisons uniquement.
+      Contient les colonnes calculées : categorie_bien, tranche_prix, saison_vente.
+
+    columns:
+      # ── Identifiants ─────────────────────────────
+      - name: id_document
+        description: "Identifiant unique de la transaction"
+        tests:
+          - not_null
+
+      - name: code_commune
+        description: "Code INSEE de la commune"
+        tests:
+          - not_null
+
+      - name: nom_commune
+        description: "Nom de la commune"
+        tests:
+          - not_null
+
+      - name: code_departement
+        description: "Code du département"
+        tests:
+          - not_null
+
+      - name: code_postal
+        description: "Code postal"
+
+      # ── Dates ────────────────────────────────────
+      - name: date_mutation
+        description: "Date de la transaction"
+        tests:
+          - not_null
+
+      - name: annee_mutation
+        description: "Année extraite de la date"
+        tests:
+          - not_null
+
+      - name: mois_mutation
+        description: "Mois extrait de la date (1 à 12)"
+        tests:
+          - not_null
+
+      - name: trimestre_mutation
+        description: "Trimestre extrait de la date (1 à 4)"
+        tests:
+          - not_null
+
+      - name: saison_vente
+        description: "Saison de la vente"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Hiver", "Printemps", "Été", "Automne"]
+
+      # ── Bien immobilier ───────────────────────────
+      - name: type_bien
+        description: "Type de bien : Appartement ou Maison"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Appartement", "Maison"]
+
+      - name: nb_pieces
+        description: "Nombre de pièces principales"
+
+      - name: surface_m2
+        description: "Surface habitable en m²"
+        tests:
+          - not_null
+
+      - name: surface_terrain_m2
+        description: "Surface du terrain en m² (surtout utile pour les maisons)"
+
+      - name: surface_carrez_m2
+        description: "Surface loi Carrez du lot principal en m²"
+
+      - name: nombre_lots
+        description: "Nombre de lots dans la transaction"
+
+      - name: categorie_bien
+        description: "Catégorie de taille : Studio/T1, T2, T3, T4, T5 et plus"
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                ["Studio / T1", "T2", "T3", "T4", "T5 et plus", "Non renseigné"]
+
+      # ── Prix ──────────────────────────────────────
+      - name: prix_vente
+        description: "Prix de vente en euros"
+        tests:
+          - not_null
+
+      - name: prix_m2
+        description: "Prix au m² calculé : prix_vente / surface_m2"
+        tests:
+          - not_null
+
+      - name: tranche_prix
+        description: "Tranche de prix de vente"
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                [
+                  "Moins de 100k",
+                  "100k - 200k",
+                  "200k - 350k",
+                  "350k - 500k",
+                  "Plus de 500k",
+                ]
+
+      # ── Localisation ─────────────────────────────
+      - name: numero_voie
+        description: "Numéro dans la rue"
+
+      - name: type_voie
+        description: "Rue, Avenue, Boulevard..."
+
+      - name: nom_voie
+        description: "Nom de la rue"
+
+      - name: section_cadastrale
+        description: "Section cadastrale du bien"

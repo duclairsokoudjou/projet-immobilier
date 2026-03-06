@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: mart_evolution
+    description: >
+      Évolution YoY (Year-over-Year) du prix médian par ville et type de bien.
+      Calcul via window function LAG() sur l'année précédente.
+      Minimum 5 transactions par groupe pour fiabilité.
+
+    columns:
+      - name: nom_commune
+        description: "Nom de la commune"
+        tests:
+          - not_null
+
+      - name: code_departement
+        description: "Code du département"
+        tests:
+          - not_null
+
+      - name: type_bien
+        description: "Appartement ou Maison"
+        tests:
+          - not_null
+
+      - name: annee_mutation
+        description: "Année"
+        tests:
+          - not_null
+
+      - name: prix_m2_median
+        description: "Prix médian au m² pour cette année"
+        tests:
+          - not_null
+
+      - name: prix_m2_moyen
+        description: "Prix moyen au m² pour cette année"
+
+      - name: nb_transactions
+        description: "Nombre de transactions"
+        tests:
+          - not_null
+
+      - name: rendement_moyen_pct
+        description: "Rendement locatif estimé moyen"
+
+      - name: prix_m2_annee_precedente
+        description: "Prix médian au m² de l'année précédente (via LAG)"
+
+      - name: evolution_pct_yoy
+        description: "Evolution en % par rapport à l'année précédente. NULL pour la première année."

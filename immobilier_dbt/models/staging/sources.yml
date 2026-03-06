@@ -1,0 +1,61 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: "Données DVF brutes chargées depuis data.gouv.fr"
+
+    tables:
+      - name: raw_dvf
+        description: "Transactions immobilières - Demandes de Valeurs Foncières"
+        freshness:
+          warn_after: { count: 90, period: day }
+          error_after: { count: 180, period: day }
+        loaded_at_field: date_mutation
+
+        columns:
+          # ── Transaction ──────────────────────────────
+          - name: date_mutation
+            description: "Date de la transaction immobilière"
+          - name: nature_mutation
+            description: "Type de mutation : Vente, Adjudication..."
+          - name: valeur_fonciere
+            description: "Prix de vente en euros"
+
+          # ── Localisation ─────────────────────────────
+          - name: no_voie
+            description: "Numéro dans la rue"
+          - name: type_de_voie
+            description: "Rue, Avenue, Boulevard..."
+          - name: voie
+            description: "Nom de la rue"
+          - name: code_postal
+            description: "Code postal"
+          - name: commune
+            description: "Nom de la commune"
+          - name: code_departement
+            description: "Numéro du département (75, 69...)"
+          - name: code_commune
+            description: "Code INSEE de la commune"
+          - name: section
+            description: "Section cadastrale"
+
+          # ── Bien immobilier ───────────────────────────
+          - name: type_local
+            description: "Appartement, Maison, Local industriel..."
+          - name: surface_reelle_bati
+            description: "Surface habitable en m²"
+          - name: nombre_pieces_principales
+            description: "Nombre de pièces principales"
+          - name: surface_terrain
+            description: "Surface du terrain en m² (utile pour les maisons)"
+
+          # ── Lots copropriété ──────────────────────────
+          - name: nombre_de_lots
+            description: "Nombre de lots dans la transaction"
+          - name: surface_carrez_du_1er_lot
+            description: "Surface loi Carrez du lot principal en m²"
+
+          # ── Calculé ───────────────────────────────────
+          - name: prix_m2
+            description: "Prix au m² calculé : valeur_fonciere / surface_reelle_bati"
